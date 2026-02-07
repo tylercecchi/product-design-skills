@@ -1,5 +1,5 @@
 ---
-name: Design DNA
+name: design-dna
 description: Build Product Design DNAs through conversation. DNA is a canvas for iterating on design concepts and logic, the same way Figma lets you iterate on pixels.
 author: Tyler Cecchi
 version: 1.0.0
