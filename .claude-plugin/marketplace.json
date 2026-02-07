@@ -1,0 +1,16 @@
+{
+  "name": "design-dna",
+  "owner": {
+    "name": "Tyler Cecchi"
+  },
+  "metadata": {
+    "description": "Design DNA Creator"
+  },
+  "plugins": [
+    {
+      "name": "design-dna",
+      "source": "./plugins/design-dna",
+      "description": "Creates a Design DNA artifact"
+    }
+  ]
+}
