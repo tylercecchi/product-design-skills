@@ -31,13 +31,13 @@ DNA makes the invisible visible. And visible means iterable.
 **One-line install (recommended):**
 
 ```bash
-npx skills add tylercecchi/design-dna
+npx skills add tylercecchi/product-design-skills --skill design-dna
 ```
 
 **Or manual:**
 
 ```bash
-mkdir -p .claude/skills/design-dna && curl -sS https://raw.githubusercontent.com/tylercecchi/design-dna/main/SKILL.md -o .claude/skills/design-dna/SKILL.md
+mkdir -p .claude/skills/design-dna && curl -sS https://raw.githubusercontent.com/tylercecchi/product-design-skills/main/SKILL.md -o .claude/skills/design-dna/SKILL.md
 ```
 
 ---
