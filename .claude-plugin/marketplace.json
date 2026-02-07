@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "design-dna",
-      "source": "./plugins/design-dna",
+      "source": "./skills/design-dna",
       "description": "Creates a Design DNA artifact"
     }
   ]
