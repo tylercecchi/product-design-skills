@@ -1,16 +1,16 @@
 {
-  "name": "design-dna",
+  "name": "product-design-skills",
   "owner": {
     "name": "Tyler Cecchi"
   },
   "metadata": {
-    "description": "Design DNA Creator"
+    "description": "Tools for product designers"
   },
   "plugins": [
     {
       "name": "design-dna",
-      "source": "./skills/design-dna",
-      "description": "Creates a Design DNA artifact"
+    "description": "Walks a designer through creating a structured design DNA used to fabricate a product",
+    "version": "1.0.0"
     }
   ]
 }
