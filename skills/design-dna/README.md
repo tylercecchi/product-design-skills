@@ -37,7 +37,7 @@ npx skills add tylercecchi/product-design-skills --skill design-dna
 **Or manual:**
 
 ```bash
-mkdir -p .claude/skills/design-dna && curl -sS https://raw.githubusercontent.com/tylercecchi/product-design-skills/main/SKILL.md -o .claude/skills/design-dna/SKILL.md
+mkdir -p .claude/skills/design-dna && curl -sS https://raw.githubusercontent.com/tylercecchi/product-design-skills/skills/design-dna/SKILL.md -o .claude/skills/design-dna/SKILL.md
 ```
 
 ---
@@ -69,14 +69,17 @@ That's it. Claude will guide you through building your DNA.
 - `review design system` — Review Part 3
 
 **Visualizing**
-- `visualize [layer]` — Interactive graph with clickable previews
-- `visualize all` — Full DNA map
+- `visualize map` — Interactive dependency graph with clickable previews
+- `visualize dna` — Interactive documentation with visuals for each layer
 - `generate reference app` — Living style guide
 
 **Experimenting**
 - `try [change]` — Preview in code
 - `keep it` — Sync to DNA
 - `revert` — Restore from DNA
+
+**Updating**
+- `check for updates` — Check for skill updates and migrate your DNA
 
 ---
 

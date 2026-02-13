@@ -8,8 +8,10 @@ triggers:
   - work on dna
   - design dna
   - product design dna
+  - visualize map
   - visualize dna
   - review dna
+  - check for updates
 ---
 
 ```
@@ -1071,8 +1073,8 @@ The designer can say:
 - **"review design system"** — Review all of Part 3
 
 **Visualizing & Previewing**
-- **"visualize [layer]"** — Generate interactive graph with clickable previews
-- **"visualize all"** — Generate full DNA map with clickable previews
+- **"visualize map"** — Generate interactive dependency graph with clickable previews
+- **"visualize dna"** — Generate interactive documentation with visuals for each layer
 - **"generate reference app"** — Create living style guide
 - **"demo [module]"** — Interactive demo of a single module
 
@@ -1080,6 +1082,9 @@ The designer can say:
 - **"try [change]"** — Experimental change (code only, prompts keep/revert)
 - **"keep it"** — Sync experimental change to DNA
 - **"revert"** — Restore code from DNA
+
+**Updating**
+- **"check for updates"** — Check for skill updates and walk through DNA migrations
 
 **Finishing**
 - **"export"** — Finalize and confirm DNA is ready
@@ -1247,25 +1252,31 @@ Want to address these gaps?
 
 ## Visualizations
 
-When a designer says "visualize [layer]" or "visualize all", generate an interactive HTML file using D3.js that shows dependencies with clickable previews.
+Two visualization commands:
 
-**The visualization is the navigation layer.** Click any node to preview what it represents.
+### visualize map
 
-**Output location:**
+Interactive dependency graph showing how everything connects.
+
 ```
-dna/
-└── my-product/
-    └── visualizations/
-        ├── problem-map.html
-        ├── schema-map.html
-        ├── genome-map.html
-        ├── tokens-map.html
-        ├── appearances-map.html
-        ├── conditions-map.html
-        ├── modules-map.html
-        ├── principles-map.html
-        └── full-dna-map.html
+> visualize map
+
+Creating dependency map...
+Created dna/my-product/visualizations/dna-map.html
+
+Open in browser to explore:
+- 47 nodes across all layers
+- 128 connections
+- Click any node to preview
 ```
+
+**Output:** `dna/[product]/visualizations/dna-map.html`
+
+**What it shows:**
+- Every aspect of every layer as a node
+- Connections between them as lines
+- Color-coded by layer type
+- Force-directed layout
 
 **Interaction model:**
 
@@ -1297,6 +1308,50 @@ dna/
 - "Open Full Preview" opens dedicated page in new browser tab
 - Close with × or Escape key
 - Connections list is clickable → navigates to that node
+
+### visualize dna
+
+Interactive documentation showing the DNA as a visual guide.
+
+```
+> visualize dna
+
+Creating DNA guide...
+Created dna/my-product/visualizations/dna-guide.html
+
+Open in browser to explore your DNA visually.
+```
+
+**Output:** `dna/[product]/visualizations/dna-guide.html`
+
+**What it shows:**
+
+A scrollable, interactive documentation page organized by layer:
+
+**1. Problem Space section**
+- Friction map as visual diagram
+- User forces as push/pull indicators
+- Success criteria as checklist
+- Anti-goals as boundary markers
+
+**2. Product Definition section**
+- Schema entities as cards with properties and states
+- Genome actions as flow diagrams
+- Principles as ranked list with examples
+
+**3. Design System section**
+- Tokens as visual swatches (colors, spacing scales, type specimens, timing previews)
+- Appearances as rendered components with all variants
+- Conditions as toggle switches that update previews
+- Modules as interactive demos
+
+**Interaction model:**
+
+- Scroll through layers
+- Click any aspect to expand details
+- Toggle conditions to see how appearances change
+- Hover modules to see them in action
+- Click "Edit in DNA" to jump to that section
 
 ## Live Reference App
 
@@ -2040,6 +2095,163 @@ This keeps DNA as source of truth. Want me to do that instead?
 ```
 
 Always redirect to DNA-first. Code is a fabrication, not the source.
+
+## Skill Updates
+
+When a designer says "check for updates", fetch the latest SKILL.md from GitHub and compare to the installed version.
+
+**Check for updates flow:**
+
+```
+> check for updates
+
+Checking tylercecchi/design-dna for updates...
+
+Current version: 1.0.0
+Latest version: 1.1.0
+
+SKILL CHANGES (instructions only):
+- New command: "visualize map" (replaces "visualize all")
+- New command: "visualize dna" for interactive documentation
+- Improved cross-layer connection logic
+
+DNA STRUCTURE CHANGES (affects your DNA files):
+- Genome: New "Frequency" field
+- Appearances: New "Accessibility notes" field
+- Modules: New "Edge cases" section
+
+Your DNA could benefit from these additions.
+Walk through updating your DNA? (Your existing work is preserved)
+```
+
+**If designer says yes, walk through each addition:**
+
+```
+> yes
+
+Let's add the new elements to your DNA.
+
+─────────────────────────────────────
+GENOME: "Frequency" field
+─────────────────────────────────────
+
+This tracks how often an action happens:
+- constant: Multiple times per session
+- frequent: Once per session  
+- occasional: Weekly or less
+- rare: Edge case actions
+
+Helps prioritize which actions need the most polish.
+
+Your Genome has 6 actions. Add Frequency to each?
+```
+
+If yes, walk through each action:
+
+```
+> yes
+
+"Create Project" — How often does this happen?
+(constant / frequent / occasional / rare)
+
+> occasional
+
+✓ Create Project: frequency → occasional
+
+"Complete Task" — How often?
+
+> constant
+
+✓ Complete Task: frequency → constant
+
+[continues for each action]
+
+Done. Frequency added to all 6 actions.
+
+─────────────────────────────────────
+APPEARANCES: "Accessibility notes" field
+─────────────────────────────────────
+
+This documents accessibility considerations:
+- Color contrast requirements
+- Screen reader behavior
+- Keyboard navigation
+- Focus indicators
+
+Your DNA has 4 appearances. Add accessibility notes to each?
+```
+
+**Types of changes to handle:**
+
+| Change type | Action |
+|-------------|--------|
+| New command | Inform only (no DNA change needed) |
+| New layer | Offer to create and populate |
+| New field in existing layer | Offer to add to each existing entry |
+| Changed field format | Offer to migrate existing values |
+| Renamed field | Auto-migrate, inform designer |
+| Removed field | Warn, offer to keep or remove |
+| New required connection | Check if connections exist, prompt to add |
+
+**Skip option:**
+
+At any point, designer can skip:
+
+```
+> skip
+
+Skipping "Accessibility notes" for now.
+You can add this later with "work on appearances".
+
+─────────────────────────────────────
+MODULES: "Edge cases" section
+─────────────────────────────────────
+
+[continues to next change]
+```
+
+**When complete:**
+
+```
+DNA updated with 1.1.0 additions:
+✓ Frequency added to 6 Genome actions
+○ Accessibility notes skipped
+✓ Edge cases added to 3 Modules
+
+Updating skill file...
+✓ SKILL.md updated to 1.1.0
+
+You're on the latest version.
+```
+
+**If no updates available:**
+
+```
+> check for updates
+
+Checking tylercecchi/design-dna for updates...
+
+You're on the latest version (1.1.0).
+No updates available.
+```
+
+**If designer declines migration:**
+
+```
+> no, just update the skill
+
+Updating skill file only...
+✓ SKILL.md updated to 1.1.0
+
+Your DNA files are unchanged.
+New commands are available. New DNA fields can be added 
+later with "work on [layer]".
+```
+
+**Source URL:**
+```
+https://raw.githubusercontent.com/tylercecchi/design-dna/main/SKILL.md
+```
 
 ## When Complete
 
