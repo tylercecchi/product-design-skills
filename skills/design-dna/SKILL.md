@@ -1,5 +1,5 @@
 ---
-name: design-dna
+name: design-dan
 description: Build Product Design DNAs through conversation. DNA is a canvas for iterating on design concepts and logic, the same way Figma lets you iterate on pixels.
 author: Tyler Cecchi
 version: 1.0.0
@@ -68,6 +68,12 @@ The whole product posture shifts from "careful" to "confident."
 
 You can try that. See the implications. Revert or commit. Just like dragging a rectangle in Figma.
 
+**DNA grows from iteration, not before it.**
+
+You don't fill out a form before designing. You start building, make decisions, and DNA captures them. The Friction Map emerges when you say "this is hard to scan." Success Criteria emerge when you say "I need to see status fast." Principles emerge when you choose scannability over density.
+
+The layers exist, but they crystallize through iteration—not upfront definition.
+
 **The designer's role elevates.**
 
 DNA externalizes the decisions that matter. Makes them tangible. Makes them something a team can see together, debate, and refine. 
@@ -104,12 +110,14 @@ You help designers discover their DNA through conversation. You don't impose str
 The DNA has three parts:
 
 **Part 1: Problem Space** — The actual design work. Where judgment matters most.
-- Foundations (name, posture, concept, platform, library)
+- Foundations (name, posture, platform, library)
 - Problem Statement
 - Friction Map  
 - User Forces
 - Success Criteria
 - Anti-goals
+- Mental Models
+- Constraints
 
 **Part 2: Product Definition** — What you're building.
 - Schema
@@ -125,53 +133,217 @@ The DNA has three parts:
 
 Part 1 constrains Parts 2 and 3. Claude references Problem Space throughout and pushes back when things don't align.
 
+**All layers can emerge through iteration.** You don't need to fill them out upfront. As the designer makes decisions, Claude captures them in the appropriate layer.
+
+### How Layers Emerge
+
+| Layer | Emerges when designer says... |
+|-------|-------------------------------|
+| Friction Map | "This is hard to..." / "Users struggle with..." |
+| Success Criteria | "I need users to be able to..." / "This should be fast" |
+| Mental Models | "Users think of it like..." / "This should feel like a..." |
+| Constraints | "It has to work on..." / "We can't..." / "Must integrate with..." |
+| User Forces | "Users resist..." / "They want..." / "What's stopping them is..." |
+| Anti-goals | "We're not building..." / "That's out of scope" |
+| Principles | Designer makes a tradeoff → Claude captures the priority |
+| Schema | Designer mentions an entity → Claude adds it |
+| Genome | Designer describes an action → Claude adds it |
+
 ## How to Start
 
-When a designer wants to build a DNA, begin with Foundations, then Problem Space.
+When a designer says "start new dna", get minimal foundations, scaffold all files, create visualization, and start building immediately.
+
+### Quick Start Flow
+
+```
+> start new dna
+
+What are you designing?
+
+> a task manager for freelancers
+
+Got it. Quick setup:
+
+Name: Freelance Tasks
+Platform: (web / mobile / desktop / cross-platform)?
+
+> web
+
+Component library: (shadcn / Radix / Material / none / other)?
+
+> shadcn
+
+Posture—how should it feel? (calm / fast / playful / professional / other)?
+
+> fast and minimal
+
+CREATING DNA:
+✓ foundations.md (populated)
+✓ friction.md (ready to capture)
+✓ success.md (ready to capture)
+✓ anti-goals.md (ready to capture)
+✓ mental-models.md (ready to capture)
+✓ constraints.md (ready to capture)
+✓ user-forces.md (ready to capture)
+✓ schema.md (ready to capture)
+✓ genome.md (ready to capture)
+✓ principles.md (ready to capture)
+✓ tokens.yaml (shadcn defaults)
+✓ appearances.md (ready to capture)
+✓ conditions.md (ready to capture)
+✓ modules.md (ready to capture)
+
+CREATING VISUALIZATION:
+✓ dna-map.html (interactive map)
+
+Open dna-map.html to see your DNA structure.
+
+Ready to build. What's the first thing a user should see?
+```
+
+**Don't ask about:**
+- Problem Statement
+- Friction Map
+- Success Criteria
+- User Forces
+- Anti-goals
+- Principles
+
+These emerge through iteration. Get to building fast.
+
+### Building Immediately
+
+```
+> a list of their active projects
+
+Fabricating ProjectList...
+
+CREATING DNA:
+- schema.md: Project entity (title, status, updated_at)
+- appearances.md: ProjectList, ProjectCard
+- tokens.yaml: Using shadcn defaults
+
+FABRICATING:
+- ProjectList.tsx
+- ProjectCard.tsx
+
+[Shows rough component]
+
+Here's a starting point. What feels wrong?
+```
+
+### DNA Emerges from Decisions
+
+As the designer iterates, Claude captures decisions in the DNA:
+
+```
+> it's too dense, hard to scan
+
+What specifically is hard to scan?
+- Too many projects visible?
+- Not enough visual separation?
+- Status isn't prominent enough?
+
+> status isn't prominent enough
+
+Capturing in DNA:
+- friction.md: "Status isn't prominent enough"
+- success.md: "Status visible at a glance"
+
+UPDATING DNA:
+- appearances.md: ProjectCard → status prominence increased
+
+REFABRICATING:
+- ProjectCard.tsx updated
+
+[Shows updated component]
+
+Better?
+```
+
+```
+> yes, but the whole thing feels too corporate
+
+What would feel less corporate?
+- Softer colors?
+- More rounded corners?
+- Less rigid grid?
+- Different typography?
+
+> softer, more rounded, less rigid
+
+Capturing in DNA:
+- foundations.md: Posture → "fast and minimal, but warm"
+- principles.md: Adding "Warmth over rigidity"
+
+UPDATING DNA:
+- tokens.yaml: radius.md → radius.lg, colors warmed
+- appearances.md: Layouts loosened
+
+REFABRICATING:
+- All components updated
+
+[Shows updated components]
+```
+
+```
+> I need users to be able to quickly add a task without leaving the project view
+
+Capturing in DNA:
+- friction.md: "Adding tasks has too much friction"
+- genome.md: "Quick Add Task" action (trigger: explicit, inline)
+- mental-models.md: "Tasks added in context, not in separate flow"
+
+FABRICATING:
+- QuickAddTask.tsx
+
+[Shows component]
+
+Where should this appear?
+```
+
+### Layers Are Always Available
+
+The designer can still explicitly work on any layer:
+
+```
+> work on friction map
+
+Current friction points (captured from iteration):
+1. "Status isn't prominent enough"
+2. "Adding tasks has too much friction"
+
+Want to add more, or review these?
+```
+
+```
+> let's add that checking project status between meetings is a key moment
+
+Adding to DNA:
+- friction.md: "Checking status between meetings"
+- mental-models.md: "Projects checked in gaps, not dedicated sessions"
+- constraints.md: "Must work quickly on mobile between meetings"
+
+This affects:
+- ProjectList should load fast
+- Status should be glanceable
+- Mobile condition is high priority
+
+Review affected components?
+```
 
 ### Foundations
 
-Start here. Establish what you're designing before defining the problem around it.
+Foundations are the only thing captured upfront. Everything else emerges.
 
-1. **Ask what they're designing** — Get the product name and a brief description
-2. **Ask about posture** — How should it feel? (calm, fast, playful, professional)
-3. **Ask about core concept** — What makes it distinctive? What's the main interaction idea?
-4. **Ask about platform** — Mobile, desktop, web, cross-platform?
-5. **Ask about component library** — Do they want to build on an existing library?
+1. **Name** — What is this called?
+2. **Platform** — Web, mobile, desktop, cross-platform?
+3. **Component library** — Starting point or from scratch?
+4. **Posture** — How should it feel?
 
-For component libraries:
-```
-Do you want to use a component library as a starting point?
-(e.g., shadcn, Radix, Material, Chakra, Ant Design, or none)
-```
-
-If they choose one:
-```
-Got it. We'll use [library] as the base.
-
-What customizations matter most to you?
-- Visual style (colors, spacing, radius)
-- Interaction feel (timing, feedback)  
-- Specific components you want to change
-- All of the above
-```
-
-The DNA becomes a customization layer over the library:
-- **Tokens** override library defaults
-- **Appearances** override library styling
-- **Modules** override library interactions
-- Library provides the foundation, DNA makes it theirs
-
-If they choose none, the DNA defines everything from scratch.
-
-**Format:**
-```markdown
-## Foundations
-
-**Name:** [product name]
-**Description:** [brief description]
-**Posture:** [how it should feel]
-**Core Concept:** [what makes it distinctive]
+Optional (can emerge later):
+- Core Concept — What makes it distinctive?
+- Description — Detailed explanation
 **Platform:** [mobile, desktop, web, cross-platform]
 **Component Library:** [library name or "none"]
 ```
@@ -331,38 +503,241 @@ That's listed as an anti-goal. Want to revisit that
 decision, or keep it out of scope?
 ```
 
+### Mental Models
+
+How users think about this domain. What metaphors they carry. What they expect before they arrive.
+
+**Emerges when designer says:**
+- "Users think of it like..."
+- "This should feel like a..."
+- "They expect it to work like..."
+
+**Format:**
+```markdown
+## Mental Models
+
+**Users think of [entity] as:**
+- [Metaphor] — [implications for design]
+
+**Users expect:**
+- [Expectation] — [how to honor or challenge it]
+
+**Anti-patterns (what they don't think):**
+- [Wrong mental model] — [why it would fail]
+```
+
+**Example:**
+```markdown
+## Mental Models
+
+**Users think of projects as:**
+- Folders (containment, hierarchy)
+- NOT timelines (they don't think in phases)
+
+**Users think of tasks as:**
+- Checkboxes (binary, satisfying to complete)
+- NOT tickets (no lifecycle, no status progression)
+
+**Implications:**
+- Project UI should feel like a folder, not a Gantt chart
+- Task completion should feel like checking a box, not "resolving"
+```
+
+Drives: Schema (what entities feel like), Appearances (visual metaphors), Modules (interaction patterns that match expectations)
+
+### Constraints
+
+Real-world limitations that shape what's possible. Non-negotiable boundaries.
+
+**Emerges when designer says:**
+- "It has to work on..."
+- "Must integrate with..."
+- "We can't..."
+- "Users only have..."
+
+**Format:**
+```markdown
+## Constraints
+
+**Technical:**
+- [Constraint]: [implication]
+
+**Organizational:**
+- [Constraint]: [implication]
+
+**User:**
+- [Constraint]: [implication]
+```
+
+**Example:**
+```markdown
+## Constraints
+
+**Technical:**
+- Must work offline (field workers) → local-first architecture
+- Must load in <2s on 3G → aggressive lazy loading
+
+**Organizational:**
+- Must integrate with existing Slack workflow → Slack-first notifications
+- Cannot replace email (leadership won't approve) → email as fallback
+
+**User:**
+- Maximum 10 minutes of learning time → progressive disclosure
+- Used on phone 60% of the time → mobile-first design
+```
+
+Drives: Conditions (offline, mobile), Tokens (performance budgets), Anti-goals (what's ruled out), Principles (what to prioritize)
+
 ---
 
 ## Folder Structure
 
-Create DNAs in a `dna/` folder with this structure:
+Create DNAs in a `dna/` folder with this structure. **All files are created at start**, with minimal scaffolding so designers can see what's available:
 
 ```
 dna/
 └── [product-name]/
-    ├── CLAUDE.md         # Instructions for using this DNA
-    ├── README.md         # Overview
+    ├── CLAUDE.md           # Instructions for using this DNA
+    ├── README.md           # Overview
     │
     │   # Part 1: Problem Space
-    ├── foundations.md    # Name, posture, concept, platform, library
-    ├── problem.md        # Problem statement, friction map, user forces
-    ├── success.md        # Success criteria
-    ├── anti-goals.md     # What's out of scope
+    ├── foundations.md      # Name, posture, platform, library
+    ├── friction.md         # Pain points (empty, ready to capture)
+    ├── success.md          # Success criteria (empty, ready to capture)
+    ├── anti-goals.md       # What's out of scope (empty, ready to capture)
+    ├── mental-models.md    # How users think (empty, ready to capture)
+    ├── constraints.md      # Limitations (empty, ready to capture)
+    ├── user-forces.md      # Push/pull dynamics (empty, ready to capture)
     │
     │   # Part 2: Product Definition
-    ├── schema.md         # Entities
-    ├── genome.md         # User actions
-    ├── principles.md     # Judgment heuristics
+    ├── schema.md           # Entities (grows as you build)
+    ├── genome.md           # User actions (grows as you build)
+    ├── principles.md       # Judgment heuristics (grows as you build)
     │
     │   # Part 3: Design System
-    ├── tokens.yaml       # Raw values
-    ├── appearances.md    # Visual representation
-    ├── conditions.md     # Contextual behavior
-    ├── modules.md        # Interaction patterns
-    ├── examples.md       # Worked demonstrations
+    ├── tokens.yaml         # Raw values (library defaults or empty)
+    ├── appearances.md      # Visual representation (grows as you build)
+    ├── conditions.md       # Contextual behavior (grows as you build)
+    ├── modules.md          # Interaction patterns (grows as you build)
+    ├── examples.md         # Worked demonstrations (grows as you build)
     │
-    └── references/       # Reference images for appearances
+    ├── references/         # Reference images for appearances
+    │
+    └── visualizations/
+        └── dna-map.html    # Interactive map (created at start, updates live)
 ```
+
+### Initial File Scaffolding
+
+Each file starts with a header and placeholder so designers know what goes there:
+
+**friction.md:**
+```markdown
+# Friction Map
+
+Pain points captured through iteration. As you identify friction, add it here.
+
+## Major Friction
+<!-- Emerges when you say "this is hard to..." or "users struggle with..." -->
+
+## Minor Friction
+<!-- Lower priority pain points -->
+```
+
+**mental-models.md:**
+```markdown
+# Mental Models
+
+How users think about this domain. Emerges when you say "users think of it like..." or "this should feel like..."
+
+## User Expectations
+<!-- What users expect before they arrive -->
+
+## Metaphors
+<!-- What real-world things does this map to? -->
+```
+
+**constraints.md:**
+```markdown
+# Constraints
+
+Real-world limitations. Emerges when you say "it has to work on...", "must integrate with...", or "we can't..."
+
+## Technical
+<!-- Platform, performance, integration constraints -->
+
+## Organizational
+<!-- Business, team, process constraints -->
+
+## User
+<!-- Time, ability, context constraints -->
+```
+
+### Initial Visualization
+
+When DNA is created, immediately generate `dna-map.html`:
+
+```
+> start new dna
+
+What are you designing?
+
+> a task manager for freelancers
+
+Quick setup:
+Name: Freelance Tasks
+Platform: web
+Library: shadcn  
+Posture: fast and minimal
+
+CREATING DNA:
+✓ foundations.md (populated)
+✓ friction.md (ready to capture)
+✓ success.md (ready to capture)
+✓ anti-goals.md (ready to capture)
+✓ mental-models.md (ready to capture)
+✓ constraints.md (ready to capture)
+✓ user-forces.md (ready to capture)
+✓ schema.md (ready to capture)
+✓ genome.md (ready to capture)
+✓ principles.md (ready to capture)
+✓ tokens.yaml (shadcn defaults)
+✓ appearances.md (ready to capture)
+✓ conditions.md (ready to capture)
+✓ modules.md (ready to capture)
+✓ examples.md (ready to capture)
+
+CREATING VISUALIZATION:
+✓ dna-map.html (interactive map)
+
+Open dna-map.html in your browser to see your DNA structure.
+Currently showing: Foundations only. Map grows as you iterate.
+
+Ready to build. What's the first thing a user should see?
+```
+
+### Visualization Updates Live
+
+As DNA grows through iteration, the visualization updates:
+
+```
+> status isn't prominent enough
+
+Capturing in DNA:
+- friction.md: "Status isn't prominent enough"
+- success.md: "Status visible at a glance"
+
+UPDATING:
+- appearances.md: ProjectCard → status prominence increased
+- dna-map.html: 2 new nodes (Friction, Success Criteria)
+
+REFABRICATING:
+- ProjectCard.tsx updated
+
+[Map now shows Foundations → Friction → Success → Appearances connections]
+```
+
+The designer can always open `dna-map.html` to see the current state of their DNA and how everything connects.
 
 ## Building Each Layer
 
@@ -1057,197 +1432,110 @@ Save deep thinking for moments of synthesis, conflict resolution, gap detection,
 
 The designer can say:
 
-**Starting & Building**
-- **"start new dna"** — Begin with Foundations
-- **"work on [layer]"** — Build or edit any layer
+**Starting**
+- **"start new dna"** — Scaffold DNA, create visualization, start building
 
 **Viewing**
-- **"show [layer]"** — Display current content of a layer
-- **"show all"** — Display overview of all layers with status
+- **"visualize map"** — Interactive dependency graph (system view)
+- **"visualize dna"** — Scrollable documentation (reference view)
 
-**Reviewing**
-- **"review"** — Check completeness and connections
-- **"review [screen/component]"** — Trace how DNA composes a specific part
-- **"review problem space"** — Review all of Part 1
-- **"review product definition"** — Review all of Part 2
-- **"review design system"** — Review all of Part 3
-
-**Visualizing & Previewing**
-- **"visualize map"** — Generate interactive dependency graph with clickable previews
-- **"visualize dna"** — Generate interactive documentation with visuals for each layer
-- **"generate reference app"** — Create living style guide
-- **"demo [module]"** — Interactive demo of a single module
-
-**Experimenting**
-- **"try [change]"** — Experimental change (code only, prompts keep/revert)
-- **"keep it"** — Sync experimental change to DNA
-- **"revert"** — Restore code from DNA
+**Editing**
+- **"undo"** — Revert last DNA change, refabricate code
 
 **Updating**
 - **"check for updates"** — Check for skill updates and walk through DNA migrations
 
-**Finishing**
-- **"export"** — Finalize and confirm DNA is ready
+### Natural Language Requests
 
-**"work on" examples:**
-```
-> work on foundations
-> work on problem statement
-> work on friction map
-> work on user forces
-> work on success criteria
-> work on anti-goals
-> work on schema
-> work on genome
-> work on principles
-> work on tokens
-> work on appearances
-> work on conditions
-> work on modules
-> work on examples
-```
-
-When working on any Problem Space element (foundations, problem statement, friction map, user forces, success criteria, anti-goals), Claude automatically reviews downstream impact after changes.
-
-## Section Reviews
-
-**review problem space**
-
-Reviews Part 1 as a whole—checking coherence and completeness:
+Most interaction is natural language. The designer describes what they want, Claude figures out which layers are involved:
 
 ```
-> review problem space
+> add a swipe gesture to dismiss cards on the profile screen
 
-PROBLEM SPACE REVIEW
+Checking DNA...
 
-Problem Statement:
-✓ Who: "Mid-size teams (10-50 people)"
-✓ Current state: Defined
-✓ Breakdown: Defined
-✓ Cost: Defined
+SCHEMA:
+✓ Profile entity exists
+✓ Card appearance exists
 
-Friction Map:
-✓ 2 major friction points identified
-✓ 1 minor friction point identified
-⚠ Major: "No visibility into status" — addressed by Genome
-⚠ Major: "Manual sync across tools" — not yet addressed
+MODULES:
+⚠️ No swipe module defined
 
-User Forces:
-✓ 3 push forces defined
-✓ 2 pull-back forces defined
-⚠ Pull-back "Learning curve" — no Principle addresses this
+GENOME:
+? What happens when dismissed? (archive / delete / hide)
 
-Success Criteria:
-✓ 3 criteria defined
-✓ All are observable/measurable
-⚠ "Status in 10 seconds" — no Example validates this yet
+> hide it temporarily
 
-Anti-goals:
-✓ 2 anti-goals defined
-✓ No conflicts with current Schema/Genome
+FRICTION:
+✓ Aligns with "quick actions without commitment" 
 
-GAPS:
-1. "Manual sync" friction has no solution in Parts 2-3
-2. "Learning curve" force has no Principle addressing it
-3. "Status in 10 seconds" needs a validating Example
+PRINCIPLES:
+✓ #1 "Forgiving over destructive" — hide is reversible ✓
 
-Want to address these gaps?
+MENTAL MODELS:
+✓ Users expect swipe-to-dismiss from other apps
+
+UPDATING DNA:
+- modules.md: Adding swipe-dismiss (direction: horizontal, action: hide)
+- genome.md: Adding "Temporarily Hide" action (reversible: true)
+- appearances.md: Card → adding swipe affordance
+
+FABRICATING:
+- Card.tsx: updated with swipe behavior
+- ProfileScreen.tsx: updated
+
+✓ Done
 ```
 
-**review product definition**
+### How Claude Processes Requests
 
-Reviews Part 2—checking that it aligns with Problem Space:
+For any request, Claude:
 
-```
-> review product definition
-
-PRODUCT DEFINITION REVIEW
-
-Foundations:
-✓ Name, posture, platform defined
-✓ Component library: shadcn
-
-Schema:
-✓ 4 entities defined
-✓ All have properties and states
-⚠ "Project" addresses visibility friction
-⚠ "Task" — unclear which friction this addresses
-? No entity addresses "sync" friction
-
-Genome:
-✓ 8 actions defined
-⚠ "Create Project" — addresses visibility friction
-⚠ "Update Status" — addresses visibility friction
-? No action addresses "sync" friction
-
-Principles:
-✓ 4 principles, ordered
-⚠ #1 "Clarity over speed" — aligns with visibility focus
-⚠ No principle addresses "learning curve" pull-back force
-
-ALIGNMENT:
-- 1 of 2 major frictions addressed
-- 1 of 2 pull-back forces addressed
-
-GAPS:
-1. "Sync" friction has no Schema entity or Genome action
-2. "Learning curve" force has no guiding Principle
-
-Want to address these gaps?
-```
-
-**review design system**
-
-Reviews Part 3—checking completeness and consistency:
+1. **Parses the request** — What's being asked for?
+2. **Identifies affected layers** — Schema? Modules? Appearances? Genome?
+3. **Checks current DNA** — What exists? What's missing? Any conflicts?
+4. **Checks Problem Space** — Does this align with friction, principles, mental models?
+5. **Surfaces issues** — Conflicts, gaps, or clarifying questions
+6. **Updates DNA** — All affected layers
+7. **Fabricates code** — From the updated DNA
+8. **Verifies sync** — DNA and code match
 
 ```
-> review design system
+> make the cards feel more premium
 
-DESIGN SYSTEM REVIEW
+Parsing: Visual/feel change to Card appearance
 
-Tokens:
-✓ Timing: 5 values
-✓ Spacing: scale defined
-✓ Typography: family + scale
-✓ Color: semantic colors defined
-⚠ No "danger" color for destructive actions
+CHECKING DNA:
 
 Appearances:
-✓ 6 appearances defined
-✓ 4 have reference images
-⚠ "Project Card" — references hover-reveal module ✓
-⚠ "Task Row" — no modules attached
-? No appearance for "Notification" (if you add sync)
+- Card exists, currently uses: shadow.sm, radius.md
 
-Conditions:
-✓ 4 conditions defined
-⚠ "Mobile" — affects 3 appearances
-⚠ "Empty State" — affects 2 appearances
-? No "First Run" condition (for learning curve)
+Tokens:
+- shadow.sm = 0 1px 2px rgba(0,0,0,0.05)
+- radius.md = 8px
 
-Modules:
-✓ 5 modules defined
-✓ All have timing tokens specified
-⚠ "hover-reveal" used in 2 appearances
-⚠ "swipe-to-delete" — has Appearance affordance ✓
+Principles:
+- #3 "Utilitarian over decorative" — tension with "premium"
 
-Examples:
-✓ 2 examples traced
-⚠ "Create Project" — validates "quick start" criteria
-? No example validates "status in 10 seconds" criteria
+QUESTION:
+"Premium" might conflict with your "utilitarian" principle.
 
-COVERAGE:
-- 4 of 6 Schema entities have Appearances
-- 5 of 8 Genome actions have supporting Modules
-- 1 of 3 Success Criteria validated by Examples
+Options:
+1. Subtle premium (better shadows, smoother animations) — stays utilitarian
+2. Overt premium (gradients, depth, polish) — overrides principle
+3. Update the principle
 
-GAPS:
-1. Missing danger color token
-2. "Task Row" has no interaction modules
-3. No "First Run" condition
-4. Need Example for "status in 10 seconds"
+> subtle premium
 
-Want to address these gaps?
+UPDATING DNA:
+- tokens.yaml: shadow.card → 0 2px 8px rgba(0,0,0,0.08)
+- tokens.yaml: timing.card-hover → 150ms (smoother)
+- appearances.md: Card → shadow.card, transition timing
+
+FABRICATING:
+- Card.tsx: updated
+
+✓ Done. Cards now have subtle depth and smoother transitions.
 ```
 
 ## Visualizations
@@ -1351,279 +1639,6 @@ A scrollable, interactive documentation page organized by layer:
 - Click any aspect to expand details
 - Toggle conditions to see how appearances change
 - Hover modules to see them in action
-- Click "Edit in DNA" to jump to that section
-
-## Live Reference App
-
-When a designer says "generate reference app" or "build reference", create a living style guide generated from the DNA files. This is a single HTML file (or small set of files) that visualizes the design system in action.
-
-**Command:**
-```
-> generate reference app
-
-Creating reference app...
-Created dna/my-product/reference/index.html
-
-Open in browser to see:
-- Token swatches and scales
-- Appearance examples with all variants
-- Module interaction demos
-- Condition state previews
-- Entity representations
-```
-
-**What the reference app contains:**
-
-**1. Tokens section**
-```
-TIMING
-├── instant: 50ms   [animated preview]
-├── micro: 100ms    [animated preview]
-├── motion: 200ms   [animated preview]
-├── macro: 350ms    [animated preview]
-└── spatial: 500ms  [animated preview]
-
-SPACING
-└── [visual blocks showing scale: 4, 8, 12, 16, 24, 32, 48, 64, 96]
-
-RADIUS  
-└── [boxes showing none, subtle, default, rounded]
-
-TYPOGRAPHY
-└── [type specimen showing scale with actual font]
-
-COLOR
-├── Surface: [swatches for base, elevated, sunken]
-├── Content: [swatches for primary, secondary, tertiary]
-└── Accent: [swatches for primary, subtle]
-```
-
-**2. Appearances section**
-
-For each Appearance in appearances.md, generate a live example:
-```
-PROJECT CARD
-├── Default state [live rendered card with sample data]
-├── Hover state [hover to see]
-├── Selected state [click to toggle]
-├── Compact variant [shown side-by-side]
-└── Reference image [if available, shown for comparison]
-
-TASK ROW
-├── Default state
-├── Completed state
-├── Dragging state
-└── ...
-```
-
-**3. Conditions section**
-
-Interactive toggles to see how conditions affect appearances:
-```
-CONDITIONS                    PREVIEW
-┌─────────────────┐          ┌─────────────────────┐
-│ [x] Mobile      │          │                     │
-│ [ ] Empty State │   ───►   │  [Live preview      │
-│ [ ] Power User  │          │   updates as you    │
-│ [ ] Offline     │          │   toggle conditions]│
-└─────────────────┘          └─────────────────────┘
-```
-
-**4. Modules section**
-
-Interactive demos of each module:
-```
-HOVER-REVEAL
-[Card element] ← Hover to see actions reveal
-
-SWIPE-TO-DELETE  
-[Row element] ← Swipe left to see delete action
-
-PULL-TO-REFRESH
-[List element] ← Pull down to trigger refresh animation
-
-PRESS-FEEDBACK
-[Button element] ← Click to see press feedback
-```
-
-**5. Principles section**
-
-Visual reminder of decision hierarchy:
-```
-PRINCIPLES (in order of precedence)
-
-#1  CLARITY OVER SPEED
-    "Never sacrifice understanding for efficiency"
-    
-#2  PROGRESSIVE DISCLOSURE  
-    "Show what's needed, reveal what's possible"
-    
-#3  FORGIVENESS
-    "Make undo easy, make destruction hard"
-```
-
-**Generation approach:**
-
-1. Parse all DNA files
-2. Generate HTML with:
-   - Embedded CSS using actual token values
-   - JavaScript for interactive modules
-   - Sample data for appearances
-   - Toggle controls for conditions
-3. Use the component library if specified (shadcn, etc.) or vanilla HTML/CSS
-4. Include hot-reload if possible (watch DNA files for changes)
-
-**Reference app commands:**
-
-- **"generate reference app"** — Create/update the full reference app
-- **"demo [module]"** — Interactive demo of a single module
-
-**Keeping it updated:**
-
-When DNA files change, prompt:
-```
-DNA updated. Reference app may be out of date.
-Run "generate reference app" to rebuild.
-```
-
-**Interactive features:**
-- Hover: highlight connected nodes
-- Click: drill into node details, show full dependency list
-- Drag: rearrange layout
-- Zoom: navigate large graphs
-- Filter: show/hide by layer type
-
-**Generation approach:**
-
-Create an HTML file with:
-1. Embedded D3.js (or link to CDN)
-2. JSON data structure extracted from DNA files
-3. Force-directed graph layout
-4. Layer-specific color coding matching DNA Builder colors:
-   - Problem Space: #EF4444 (red - the fire you're putting out)
-   - Schema: #A78BFA
-   - Genome: #60A5FA
-   - Tokens: #FBBF24
-   - Appearances: #34D399
-   - Conditions: #22D3EE
-   - Modules: #F472B6
-   - Principles: #FB923C
-
-**Label styling:**
-- Font: monospace (JetBrains Mono, Fira Code, or SF Mono)
-- Size: 10-11px
-- Color: #E5E5E5 (light gray on dark background) or #404040 (dark gray on light background)
-- Position: below the node, not overlapping
-- Background: subtle pill/badge with layer color at 15% opacity
-- Padding: 2px 6px
-- No labels overlapping nodes—use leader lines if needed for dense areas
-- On hover: label becomes full opacity and slightly larger
-
-```css
-/* Example label styling */
-.node-label {
-  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
-  font-size: 10px;
-  fill: #E5E5E5;
-  text-anchor: middle;
-  pointer-events: none;
-}
-
-.node-label-bg {
-  rx: 3px;
-  ry: 3px;
-  fill: currentColor;
-  opacity: 0.15;
-}
-```
-
-**Node styling:**
-- Nodes: circles with layer color fill
-- Size: 8-12px radius base, larger for more connections
-- Stroke: 2px white or dark border for contrast
-- On hover: scale up 1.2x, show connections
-
-After generating, tell the designer:
-```
-Created visualizations/genome-map.html
-
-Open in browser to explore. Shows:
-- 12 actions
-- 47 connections to other DNA elements
-- Hover any node to see its dependencies
-```
-
-## Review Mode
-
-When a designer says "review [screen/component/interaction]", trace how the DNA pieces compose it.
-
-**Step 1: Show composition**
-
-```
-> review project list screen
-
-This screen is composed of:
-
-APPEARANCES
-├── Project Card (×n)
-├── List Header  
-└── Empty State (if no projects)
-
-CONDITIONS
-├── Mobile (currently inactive)
-├── Empty Project (if list empty)
-
-MODULES
-├── hover-reveal (on cards)
-├── pull-to-refresh (on list)
-└── skeleton-loading (while fetching)
-
-TOKENS IN USE
-├── spatial.scale[4] — list gap
-├── spatial.scale[3] — card padding
-└── timing.motion — hover transitions
-
-What do you want to adjust?
-```
-
-**Step 2: When designer requests a change, show impact**
-
-```
-> tighten the card padding
-
-Changing Project Card padding from spatial.scale[3] (16px) 
-to spatial.scale[2] (12px).
-
-This will also affect:
-├── Project Card in Dashboard screen
-├── Project Card in Search Results
-└── Compact variant already uses scale[2], will now match default
-
-Proceed?
-```
-
-**Step 3: If confirmed, make the change and update DNA**
-
-- Update the code/implementation
-- Update appearances.md to reflect the new token usage
-- Note: if this is a one-off change (only this screen), ask if it should become a new Condition or Variant instead
-
-**What to surface:**
-
-1. **Appearances** — Which visual representations are on this screen
-2. **Conditions** — Which contextual behaviors are active or could be active
-3. **Modules** — Which interaction patterns are applied
-4. **Tokens** — Specific values in use (spacing, timing, color)
-5. **Schema** — Which entities are represented
-6. **Principles** — Which might govern decisions about changes
-
-**Downstream impact categories:**
-
-- **Same appearance elsewhere** — Other screens using this appearance
-- **Variants** — Compact, selected, etc. that might need to stay differentiated
-- **Conditions** — Mobile, empty state, etc. that override values
-- **Modules** — Patterns that reference the same tokens
-- **Principles** — Conflicts with stated priorities (e.g., changing density when "clarity over density" is #1)
 
 ## Cross-Layer Awareness
 
@@ -1886,9 +1901,20 @@ As you converse, create and update the files. After each significant addition:
 
 ## DNA as Source of Truth
 
-**Critical rule: DNA first. Always.**
+**Critical rule: DNA first. Always. In both DNA mode and product mode.**
 
-The DNA drives the code, not the other way around. Code is a fabrication of DNA. When DNA changes, code is refabricated to match.
+The DNA drives the code, not the other way around. Code is a fabrication of DNA. When DNA changes, code is refabricated to match. Code is never edited directly—all changes flow through DNA.
+
+### Why This Matters
+
+If code is edited directly:
+- DNA becomes outdated documentation, not a source of truth
+- Future fabrication will overwrite manual changes
+- Cross-layer connections break (Friction Map → Appearances link is lost)
+- Problem Space stops driving decisions
+- The system loses coherence
+
+**The designer's intent lives in the DNA. Code is just the output.**
 
 ### Standard Change Flow
 
@@ -1917,60 +1943,31 @@ FABRICATING CODE FROM DNA:
 ✓ DNA and code in sync
 ```
 
-### Experimental Change Flow
+### Undo Flow
 
-When a designer wants to preview before committing:
+If the designer doesn't like a change:
 
 ```
-> try hiding the search bar when results show
+> undo
 
-This is experimental—updating code only to preview.
+Reverting last DNA change...
 
-[Code updated for preview]
+REVERTING:
+- appearances.md: Search Bar → removing hidden variant
+- conditions.md: Removing "Results Visible"
+- modules.md: Removing collapse-out pattern
 
-Keep it or revert?
+REFABRICATING:
+- SearchBar.tsx restored
+
+✓ DNA and code back to previous state
 ```
 
-If designer keeps it:
-```
-> keep it
-
-SYNCING TO DNA:
-- conditions.md: Adding "Results Visible"
-- appearances.md: Search Bar → adding hidden variant
-- modules.md: Adding collapse-out pattern
-
-VERIFYING PLACEMENT:
-✓ State trigger → Conditions (correct)
-✓ Visual change → Appearances variant (correct)
-✓ Animation → Modules (correct)
-⚠️ "Results" not in Schema. Add it?
-
-> yes
-
-- schema.md: Adding Results entity with "visible" state
-
-REFABRICATING CODE FROM DNA:
-- SearchBar.tsx: Regenerated from DNA
-
-✓ DNA is source of truth
-✓ Code fabricated from DNA
-```
-
-If designer reverts:
-```
-> revert
-
-Restoring code from DNA...
-
-✓ Code matches DNA again
-```
-
-**Key point:** Even with experiments, once kept, DNA is updated first, then code is refabricated from DNA. The experiment was just a preview.
+DNA has history. Any change can be undone.
 
 ### Verification After Every Change
 
-After any change (standard or experimental-kept), verify:
+After any change, verify:
 
 **1. Sync check** — DNA and code match
 ```
@@ -2031,52 +2028,26 @@ Add the condition?
 Change requested
        │
        ▼
-┌─────────────────┐
-│ Experimental?   │──── "try", "test", "preview"
-└────────┬────────┘
-         │
-    ┌────┴────┐
-    ▼         ▼
-   Yes        No
-    │         │
-    ▼         ▼
-Code only    Update DNA
-(preview)         │
-    │             ▼
-    ▼        Verify placement
- Prompt:          │
-keep/revert?      ▼
-    │        Fabricate code
-    │         from DNA
-┌───┴───┐         │
-▼       ▼         │
-Keep   Revert     │
-│       │         │
-▼       ▼         │
-Sync   Restore    │
-to     from       │
-DNA    DNA        │
-│       │         │
-▼       │         │
-Verify  │         │
-place-  │         │
-ment    │         │
-│       │         │
-▼       │         │
-Refab-  │         │
-ricate  │         │
-code    │         │
-│       │         │
-└───┬───┴─────────┘
-    ▼
- Verify sync:
- DNA ↔ Code
-    │
-    ▼
- Flag issues:
- - Drift
- - Misplacement
- - Missing links
+  Update DNA
+       │
+       ▼
+  Verify placement
+       │
+       ▼
+  Fabricate code
+       │
+       ▼
+  Verify sync:
+  DNA ↔ Code
+       │
+       ▼
+  Flag issues:
+  - Drift
+  - Misplacement
+  - Missing links
+       │
+       ▼
+  Done (or undo)
 ```
 
 ### If Someone Tries to Edit Code Directly
@@ -2094,7 +2065,401 @@ Better approach:
 This keeps DNA as source of truth. Want me to do that instead?
 ```
 
-Always redirect to DNA-first. Code is a fabrication, not the source.
+**If they insist on direct code edit:**
+
+```
+> no, just edit the code directly
+
+OK, editing code directly.
+
+EDITING:
+- ProjectCard.tsx: padding changed to 20px
+
+⚠️ Code now differs from DNA.
+
+SYNCING TO DNA:
+- appearances.md: ProjectCard padding → 20px
+
+✓ DNA updated to match code
+✓ DNA and code in sync
+```
+
+Claude allows direct code edits but immediately syncs the change back to DNA. The DNA stays the source of truth—it just gets updated to reflect the code change.
+
+### Preventing Drift in Product Mode
+
+In product mode, Claude keeps DNA and code in sync:
+
+**1. All change requests go through DNA:**
+```
+> change the button color to blue
+
+UPDATING DNA:
+- tokens.yaml: color.primary → blue
+- appearances.md: Button uses color.primary ✓
+
+REFABRICATING:
+- Button.tsx: updated
+- SubmitButton.tsx: updated  
+- ActionButton.tsx: updated
+
+✓ 3 components refabricated from DNA
+```
+
+**2. Ambiguous requests are clarified at the DNA level:**
+```
+> make it pop more
+
+What should "pop" more?
+- The whole card? (Appearance: Card)
+- Just the status? (Appearance: StatusBadge)
+- The hover state? (Module: hover-reveal)
+
+> the status
+
+UPDATING DNA:
+- appearances.md: StatusBadge → increased prominence
+  - Font: typography.label → typography.emphasis
+  - Color: color.secondary → color.primary
+
+REFABRICATING:
+- StatusBadge.tsx: updated
+
+✓ DNA and code in sync
+```
+
+**3. Drift is synced when detected:**
+
+If code and DNA don't match when Claude is working, it syncs them:
+
+```
+> add a hover state to the card
+
+Checking current state...
+
+⚠️ Card.tsx has padding: 20px, but DNA says 16px.
+
+SYNCING TO DNA:
+- appearances.md: Card padding → 20px
+
+Now adding hover state...
+
+UPDATING DNA:
+- modules.md: Adding hover-reveal to Card
+- appearances.md: Card → adding hover variant
+
+REFABRICATING:
+- Card.tsx: updated with hover state
+
+✓ DNA and code in sync
+```
+
+## Product Mode
+
+Once the DNA is built and the product is fabricated, the designer shifts from building the DNA to iterating on the product. **All commands remain available**—they just operate in a product context.
+
+**The key principle stays the same:** DNA drives fabrication. Every design change goes through the DNA first, then code is refabricated to match.
+
+**All layers drive fabrication—including Problem Space.** Friction Map, User Forces, Success Criteria, and Anti-goals aren't just context. They actively constrain and guide every design decision.
+
+### Commands in Product Mode
+
+The same commands work, but Claude understands the context has shifted:
+
+| Command | DNA Mode (building) | Product Mode (iterating) |
+|---------|---------------------|--------------------------|
+| `work on appearances` | Creating/editing DNA file | Update DNA → refabricate affected components |
+| `work on tokens` | Defining token values | Update DNA → refabricate all components using that token |
+| `work on friction map` | Identifying pain points | Update friction → review if product addresses it |
+| `show schema` | View DNA content | Reference DNA, check against current code |
+| `show appearances` | View DNA content | Show DNA alongside current component state |
+| `show friction map` | View pain points | Check if current product addresses each point |
+| `review` | Check DNA completeness | Check DNA-to-code sync, flag drift |
+| `review [component]` | Trace how DNA composes it | Compare fabricated code to DNA, flag divergence |
+| `visualize map` | See DNA structure | See DNA structure + highlight what's implemented |
+| `visualize dna` | See DNA documentation | See DNA documentation + current component states |
+
+### Problem Space as Active Driver
+
+Problem Space isn't reference material—it drives fabrication decisions:
+
+**Friction Map drives what gets built:**
+```
+> add a new card variant
+
+Checking Problem Space...
+
+Friction Map says: "Status visibility is a major pain point"
+
+This card should:
+- Make status prominent (not secondary)
+- Use color.status tokens for quick scanning
+- Work in "Glanceable" condition
+
+Applying these constraints to the new variant...
+```
+
+**Success Criteria validate changes:**
+```
+> make the card more compact
+
+Checking Problem Space...
+
+⚠️ Friction Map: "Status visibility is a major pain point"
+   Compacting may reduce status prominence.
+
+Success Criteria: "User sees project status in <2 seconds"
+
+Options:
+1. Compact other elements, keep status size
+2. Compact everything, move status to more prominent position
+3. Compact everything (may conflict with Success Criteria)
+
+Which approach?
+```
+
+**Anti-goals block scope creep:**
+```
+> add time tracking to tasks
+
+Checking Anti-goals...
+
+⚠️ "Time tracking" is listed as an anti-goal.
+   Reason: "Not a project management tool"
+
+This conflicts with your defined boundaries.
+Proceed anyway (and remove from anti-goals), or reconsider?
+```
+
+**User Forces guide tradeoffs:**
+```
+> add an onboarding tutorial
+
+Checking User Forces...
+
+Pull-back force: "Users resist learning new tools"
+
+This tutorial should:
+- Be skippable (respect resistance)
+- Show immediate value (counter resistance)
+- Be < 60 seconds (minimize friction)
+
+Principles say: #2 "Progressive disclosure"
+
+Applying: Tutorial reveals features gradually, not all at once.
+```
+
+### Every Fabrication Checks Problem Space
+
+When refabricating any component, Claude checks:
+
+1. **Friction Map** — Does this address identified friction?
+2. **Success Criteria** — Does this help achieve measurable goals?
+3. **Anti-goals** — Does this stay within defined boundaries?
+4. **User Forces** — Does this account for push/pull dynamics?
+
+```
+> build the dashboard
+
+Checking Problem Space...
+
+FRICTION MAP:
+✓ "Can't see status quickly" → Status cards prominent
+✓ "Too many clicks to common actions" → Quick actions visible
+○ "Notifications get lost" → Not addressed in this view
+
+SUCCESS CRITERIA:
+✓ "Status in <2 seconds" → Status cards above fold
+? "3 clicks to any action" → Need to verify navigation
+
+ANTI-GOALS:
+✓ No time tracking elements
+✓ No resource management
+
+USER FORCES:
+✓ "Resist learning" → Familiar patterns used
+✓ "Want quick wins" → Most common actions prioritized
+
+Fabricating dashboard with these constraints...
+```
+
+### Product Mode Flow
+
+When iterating on a fabricated product:
+
+```
+> tighten the card padding
+
+Checking Problem Space...
+- Friction Map: Status visibility is priority
+- Success Criteria: Status in <2 seconds
+
+Tighter padding is OK if status remains prominent.
+
+UPDATING DNA:
+- appearances.md: Card padding → scale[2] (was scale[3])
+
+REFABRICATING:
+- Card.tsx: padding updated (16px → 12px)
+- CardCompact.tsx: padding updated
+- CardList.tsx: padding updated
+
+✓ 3 components refabricated
+✓ Status prominence preserved
+✓ DNA and code in sync
+```
+
+```
+> what does the DNA say about hover states?
+
+From your DNA:
+
+PROBLEM SPACE:
+- Friction: "Too many clicks to common actions"
+- This drove: Actions revealed on hover (reduce clicks)
+
+MODULES:
+- hover-reveal: Actions fade in on hover (timing.hover: 200ms)
+
+APPLIED TO:
+- Card → actions appear on hover
+- ListItem → actions appear on hover  
+- TableRow → actions appear on hover
+
+TOKENS:
+- timing.hover: 200ms
+
+Current code matches DNA ✓
+```
+
+```
+> add an error state to the form
+
+Checking DNA...
+
+PROBLEM SPACE:
+- Friction: "Users don't know what went wrong"
+- Success Criteria: "Errors are clear and actionable"
+
+This error state should:
+- Clearly identify what failed
+- Suggest how to fix it
+- Be visually distinct but not alarming
+
+To add properly:
+1. Add "error" state to Form in schema.md
+2. Add error variant to Form in appearances.md
+3. Add color.error token if not defined
+4. Refabricate Form component
+
+Walk through this?
+```
+
+```
+> the submit button feels slow
+
+What aspect feels slow?
+- The press feedback? (Module: button-press)
+- The loading state? (Module: loading-indicator)  
+- The transition after submit? (Module: form-submit)
+
+> the press feedback
+
+Checking Problem Space...
+- Friction: "App feels sluggish"
+- Success Criteria: "Interactions feel instant"
+
+Current DNA: button-press uses timing.micro (100ms)
+
+To feel instant, should be timing.instant (50ms) or less.
+
+Options:
+1. Change to timing.instant (50ms)
+2. Add tactile feedback (scale + faster timing)
+3. Both
+
+Which direction?
+```
+
+### Detecting Product Mode
+
+Claude recognizes product mode when:
+- DNA files exist and are populated
+- Fabricated code exists
+- Designer references components, screens, or interactions
+- Designer describes changes to existing UI
+
+In product mode, Claude:
+- Checks Problem Space on every fabrication decision
+- Updates DNA first, then refabricates code
+- Flags when changes conflict with Friction Map or Success Criteria
+- Warns when changes violate Anti-goals
+- Suggests solutions that align with User Forces
+
+### Staying in Sync
+
+During iteration, drift can happen. Claude watches for it:
+
+```
+> review card
+
+Checking Card against DNA...
+
+PROBLEM SPACE ALIGNMENT:
+✓ Addresses "status visibility" friction
+✓ Supports "status in <2 seconds" criteria
+✓ No anti-goal conflicts
+
+DNA SPECIFICATION:
+- Padding: scale[3] (16px)
+- Radius: radius.md (8px)
+- Hover: hover-reveal module
+
+CODE IMPLEMENTATION:
+- Padding: 16px ✓
+- Radius: 8px ✓
+- Hover: hover-reveal ✓
+
+✓ Card matches DNA
+✓ Card aligns with Problem Space
+```
+
+If there's drift:
+
+```
+> review card
+
+Checking Card against DNA...
+
+⚠️ DRIFT DETECTED:
+
+DNA says:
+- Padding: scale[3] (16px)
+
+Code has:
+- Padding: 20px (hardcoded)
+
+PROBLEM SPACE CHECK:
+- Larger padding may help "status visibility" ✓
+- No anti-goal conflict ✓
+
+Options:
+1. Refabricate from DNA (revert to 16px)
+2. Update DNA to match code (change to 20px)
+3. Investigate when this changed
+
+Which approach?
+```
+
+### The Principle
+
+Whether building the DNA or iterating on the product:
+
+**DNA is the source of truth. Code is a fabrication.**
+
+**All layers drive fabrication—including Problem Space.** Friction Map, Success Criteria, Anti-goals, and User Forces actively constrain every decision, not just Schema and Appearances.
+
+Design changes happen in the DNA. Code follows. Problem Space ensures every change serves the user.
 
 ## Skill Updates
 
